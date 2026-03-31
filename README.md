@@ -211,10 +211,10 @@ lann-mcp-server/
 
 ## 注意事项
 
-1. **模拟数据** - 当前版本使用模拟后端 API，仅用于演示目的
+1. **API 连接状态** - `create_booking` 工具已连接真实后端 API（`https://open.lannlife.com/mcp/book/create`），`query_stores` 和 `query_services` 工具使用本地数据文件
 2. **数据完整性** - 部分门店数据的字段可能为 null
 3. **预约时间** - 只能预约未来 30 天内的服务
-4. **扩展性** - 预留接口，方便未来接入真实的后端 API
+4. **版本信息** - 当前稳定版本为 v1.0.0，后续迭代将基于此版本进行
 
 ## License
 

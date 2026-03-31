@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.lystrosaurus/lann-mcp-server",
+  "title": "Lann Massage Booking",
+  "description": "MCP server for Lann massage booking service - 蘭泰式按摩预约服务",
+  "repository": {
+    "url": "https://github.com/lystrosaurus/lann-mcp-server",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "lann-mcp-server",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
