@@ -1,6 +1,6 @@
 {
   "name": "lann-mcp-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "mcpName": "io.github.lystrosaurus/lann-mcp-server",
   "description": "MCP server for Lann massage booking service - 蘭泰式按摩预约服务",
   "keywords": [
