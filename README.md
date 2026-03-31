@@ -76,7 +76,7 @@ npm run inspector
   "bookingId": "BK1704012345678A1B2",
   "message": "预约成功！已为您发送确认短信。",
   "storeInfo": {
-    "wx_name": "淮海店",
+    "name": "淮海店",
     "ADDRESS": "上海市黄浦区进贤路 216 号（近陕西南路）",
     "TELEPHONE": "021-62670235",
     "traffic": "地铁 1 号线陕西南路 1 号口出，沿陕西南路走到进贤路右转约 100m"
