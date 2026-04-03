@@ -86,9 +86,9 @@ async function callCreateBookingAPI(params: {
  */
 export async function createBooking(params: CreateBookingParams): Promise<BookingResponse> {
   // 1. 验证必填参数
-  const phoneValidation = validateRequiredString(params.phone, '手机号');
-  if (!phoneValidation.valid) {
-    return { success: false, message: phoneValidation.message! };
+  const mobileValidation = validateRequiredString(params.mobile, '手机号');
+  if (!mobileValidation.valid) {
+    return { success: false, message: mobileValidation.message! };
   }
 
   const storeNameValidation = validateRequiredString(params.storeName, '门店名称');
@@ -102,19 +102,19 @@ export async function createBooking(params: CreateBookingParams): Promise<Bookin
   }
 
   // 2. 验证手机号格式
-  const phoneValid = validatePhone(params.phone);
+  const phoneValid = validatePhone(params.mobile);
   if (!phoneValid.valid) {
     return { success: false, message: phoneValid.message! };
   }
 
   // 3. 验证人数
-  const peopleValid = validatePeopleCount(params.peopleCount);
+  const peopleValid = validatePeopleCount(params.count);
   if (!peopleValid.valid) {
     return { success: false, message: peopleValid.message! };
   }
 
   // 4. 验证预约时间
-  const timeValid = validateBookingTime(params.bookingTime);
+  const timeValid = validateBookingTime(params.bookTime);
   if (!timeValid.valid) {
     return { success: false, message: timeValid.message! };
   }
@@ -147,11 +147,11 @@ export async function createBooking(params: CreateBookingParams): Promise<Bookin
 
   // 7. 调用真实后端 API
   const apiResult = await callCreateBookingAPI({
-    mobile: params.phone,
+    mobile: params.mobile,
     storeName: matchedStore.name!,
     serviceName: matchedService.name,
-    count: params.peopleCount,
-    bookTime: params.bookingTime
+    count: params.count,
+    bookTime: params.bookTime
   });
 
   // 8. 返回结果
@@ -171,7 +171,7 @@ export const createBookingTool = {
   inputSchema: {
     type: 'object' as const,
     properties: {
-      phone: {
+      mobile: {
         type: 'string' as const,
         description: '手机号码（11 位中国大陆手机号）'
       },
@@ -183,15 +183,15 @@ export const createBookingTool = {
         type: 'string' as const,
         description: '服务项目名称，如"传统古法全身按摩 -90 分钟"、"泰式精油全身护理 -90 分钟"等'
       },
-      peopleCount: {
+      count: {
         type: 'number' as const,
         description: '预约人数（1-20 人）'
       },
-      bookingTime: {
+      bookTime: {
         type: 'string' as const,
         description: '预约时间，ISO 8601 格式（如：2024-01-15T14:00:00）'
       }
     },
-    required: ['phone', 'storeName', 'serviceName', 'peopleCount', 'bookingTime']
+    required: ['mobile', 'storeName', 'serviceName', 'count', 'bookTime']
   }
 };

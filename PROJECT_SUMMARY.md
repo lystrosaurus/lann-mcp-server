@@ -11,11 +11,11 @@
 #### create_booking - 创建预约
 - **功能**: 接受用户预约请求并验证参数
 - **输入参数**: 
-  - phone (手机号)
+  - mobile (手机号)
   - storeName (门店名称，支持模糊匹配)
   - serviceName (服务项目，支持模糊匹配)
-  - peopleCount (人数)
-  - bookingTime (预约时间)
+  - count (人数)
+  - bookTime (预约时间)
 - **验证规则**: 手机号格式、人数范围、时间有效性
 - **输出**: 预约结果（成功/失败及原因）
 

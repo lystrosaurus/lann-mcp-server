@@ -42,11 +42,11 @@ async function runTests() {
   // 测试 7: 创建预约（成功场景）
   console.log('7. 测试创建预约（精确匹配）:');
   const bookingResult = await createBooking({
-    phone: '13800138000',
+    mobile: '13800138000',
     storeName: '淮海店',
     serviceName: '传统古法全身按摩 -90 分钟',
-    peopleCount: 2,
-    bookingTime: new Date(Date.now() + 86400000).toISOString()
+    count: 2,
+    bookTime: new Date(Date.now() + 86400000).toISOString()
   });
   console.log(`   ${bookingResult.success ? '✓' : '✗'} 预约${bookingResult.success ? '成功' : '失败'}`);
   if (bookingResult.bookingId) {
@@ -57,33 +57,33 @@ async function runTests() {
   // 测试 8: 模糊匹配测试
   console.log('8. 测试模糊匹配（输入带空格）:');
   const fuzzyMatchResult = await createBooking({
-    phone: '13800138000',
+    mobile: '13800138000',
     storeName: '淮海',
     serviceName: '传统古法全身按摩 - 90 分钟',
-    peopleCount: 1,
-    bookingTime: new Date(Date.now() + 86400000).toISOString()
+    count: 1,
+    bookTime: new Date(Date.now() + 86400000).toISOString()
   });
   console.log(`   ${fuzzyMatchResult.success ? '✓' : '✗'} 匹配${fuzzyMatchResult.success ? '成功' : '失败'}\n`);
 
   // 测试 9: 验证错误处理 - 无效手机号
   console.log('9. 测试错误处理 - 无效手机号:');
   const invalidPhoneResult = await createBooking({
-    phone: '12345',
+    mobile: '12345',
     storeName: '淮海店',
     serviceName: '传统古法全身按摩 -90 分钟',
-    peopleCount: 2,
-    bookingTime: new Date(Date.now() + 86400000).toISOString()
+    count: 2,
+    bookTime: new Date(Date.now() + 86400000).toISOString()
   });
   console.log(`   ✓ 正确捕获错误：${invalidPhoneResult.message}\n`);
 
   // 测试 10: 不存在的门店
   console.log('10. 测试错误处理 - 不存在的门店:');
   const invalidStoreResult = await createBooking({
-    phone: '13800138000',
+    mobile: '13800138000',
     storeName: '不存在的门店',
     serviceName: '传统古法全身按摩 -90 分钟',
-    peopleCount: 2,
-    bookingTime: new Date(Date.now() + 86400000).toISOString()
+    count: 2,
+    bookTime: new Date(Date.now() + 86400000).toISOString()
   });
   console.log(`   ✓ 正确捕获错误：${invalidStoreResult.message}\n`);
 

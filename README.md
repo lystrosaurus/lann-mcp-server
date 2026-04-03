@@ -52,20 +52,20 @@ npm run inspector
 创建蘭泰式按摩预约。
 
 **参数：**
-- `phone` (string, 必填): 手机号码（11 位中国大陆手机号）
+- `mobile` (string, 必填): 手机号码（11 位中国大陆手机号）
 - `storeName` (string, 必填): 门店名称
 - `serviceName` (string, 必填): 服务项目名称
-- `peopleCount` (number, 必填): 预约人数（1-20 人）
-- `bookingTime` (string, 必填): 预约时间（ISO 8601 格式）
+- `count` (number, 必填): 预约人数（1-20 人）
+- `bookTime` (string, 必填): 预约时间（ISO 8601 格式）
 
 **示例：**
 ```json
 {
-  "phone": "13800138000",
+  "mobile": "13800138000",
   "storeName": "淮海店",
   "serviceName": "传统古法全身按摩 -90 分钟",
-  "peopleCount": 2,
-  "bookingTime": "2024-01-15T14:00:00"
+  "count": 2,
+  "bookTime": "2024-01-15T14:00:00"
 }
 ```
 
@@ -214,7 +214,7 @@ lann-mcp-server/
 1. **API 连接状态** - `create_booking` 工具已连接真实后端 API（`https://open.lannlife.com/mcp/book/create`），`query_stores` 和 `query_services` 工具使用本地数据文件
 2. **数据完整性** - 部分门店数据的字段可能为 null
 3. **预约时间** - 只能预约未来 30 天内的服务
-4. **版本信息** - 当前稳定版本为 v1.0.0，后续迭代将基于此版本进行
+4. **版本信息** - 当前稳定版本为 v1.0.2，后续迭代将基于此版本进行
 
 ## License
 

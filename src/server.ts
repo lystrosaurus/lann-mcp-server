@@ -12,7 +12,7 @@ export function createMcpServer(): McpServer {
   const server = new McpServer(
     {
       name: 'lann-mcp-server',
-      version: '1.0.0'
+      version: '1.0.2'
     },
     {
       capabilities: {
@@ -28,21 +28,21 @@ export function createMcpServer(): McpServer {
       title: '创建预约',
       description: '创建蘭泰式按摩预约。需要提供手机号、门店名称、服务项目、人数和预约时间。',
       inputSchema: z.object({
-        phone: z.string().describe('手机号码（11 位中国大陆手机号）'),
+        mobile: z.string().describe('手机号码（11 位中国大陆手机号）'),
         storeName: z.string().describe('门店名称，如"淮海店"、"花木店"、"新天地复兴 soho 店"等'),
         serviceName: z.string().describe('服务项目名称，如"传统古法全身按摩 -90 分钟"、"泰式精油全身护理 -90 分钟"等'),
-        peopleCount: z.number().describe('预约人数（1-20 人）'),
-        bookingTime: z.string().describe('预约时间，ISO 8601 格式（如：2024-01-15T14:00:00）')
+        count: z.number().describe('预约人数（1-20 人）'),
+        bookTime: z.string().describe('预约时间，ISO 8601 格式（如：2024-01-15T14:00:00）')
       })
     },
-    async ({ phone, storeName, serviceName, peopleCount, bookingTime }): Promise<CallToolResult> => {
+    async ({ mobile, storeName, serviceName, count, bookTime }): Promise<CallToolResult> => {
       try {
         const result = await createBooking({
-          phone,
+          mobile,
           storeName,
           serviceName,
-          peopleCount,
-          bookingTime
+          count,
+          bookTime
         });
 
         return {

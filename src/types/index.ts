@@ -20,11 +20,11 @@ export interface Service {
  * 预约请求参数
  */
 export interface CreateBookingParams {
-  phone: string;
+  mobile: string;
   storeName: string;
   serviceName: string;
-  peopleCount: number;
-  bookingTime: string; // ISO 8601 format
+  count: number;
+  bookTime: string; // ISO 8601 format
 }
 
 /**

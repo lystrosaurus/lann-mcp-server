@@ -43,18 +43,16 @@ npm publish --access public
 
 ```bash
 # 1. 验证版本一致性（确保三个版本号完全一致）
-node -p "require('./package.json').version"     # 应返回 1.0.0
-node -p "require('./server.json').version"      # 应返回 1.0.0
-git tag -l "v1.0.0"                              # 应返回 v1.0.0
+node -p "require('./package.json').version"     # 应返回 1.0.2
+node -p "require('./server.json').version"      # 应返回 1.0.2
+git tag -l "v1.0.2"                              # 应返回 v1.0.2
 
-# 2. 打版本标签（例如 v1.0.0）
-git tag v1.0.0
+# 2. 打版本标签（例如 v1.0.2）
+git tag v1.0.2
 
-# 3. 推送标签触发自动发布
-git push origin v1.0.0
-```
+git push origin v1.0.2
 
-**版本里程碑**：v1.0.0 是首个稳定版本，标志着项目正式接入真实后端 API 并投入生产使用。后续迭代将基于此版本进行。
+**版本里程碑**：v1.0.2 是稳定版本，标志着项目参数名称与MCP定义一致并投入生产使用。后续迭代将基于此版本进行。
 
 GitHub Actions 会自动执行以下步骤：
 1. ✅ 检出代码

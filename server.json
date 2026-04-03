@@ -7,12 +7,12 @@
     "url": "https://github.com/lystrosaurus/lann-mcp-server",
     "source": "github"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "lann-mcp-server",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "transport": {
         "type": "stdio"
       }
