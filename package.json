@@ -1,8 +1,8 @@
 {
   "name": "lann-mcp-server",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "mcpName": "io.github.lystrosaurus/lann-mcp-server",
-  "description": "MCP server for Lann massage booking service - 蘭泰式按摩预约服务",
+  "description": "MCP server for Lann massage booking service with HTTP/SSE support - 蘭泰式按摩预约服务",
   "keywords": [
     "mcp",
     "model-context-protocol",
@@ -10,7 +10,16 @@
     "reservation",
     "massage",
     "thai-massage",
-    "lann"
+    "lann",
+    "LANN",
+    "兰源",
+    "泰式按摩",
+    "spa",
+    "预约服务",
+    "AI Agent",
+    "http",
+    "sse",
+    "server-sent-events"
   ],
   "type": "module",
   "main": "dist/index.js",
@@ -20,11 +29,25 @@
   "files": [
     "dist",
     "org_store.json",
-    "prod_service.json"
+    "prod_service.json",
+    "README.md",
+    "DEPLOYMENT.md",
+    "QUICK_DEPLOY.md",
+    "HTTP_USAGE.md",
+    "ACCEPT_HEADER_FIX.md",
+    "SESSION_MANAGEMENT_FIX.md",
+    "REINITIALIZATION_FIX.md",
+    "RECONNECTION_FIX.md",
+    "FINAL_RECONNECTION_FIX.md",
+    "MCP_SERVER_CONNECT_FIX.md",
+    "CONTRIBUTING.md",
+    "RELEASE_CHECKLIST.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
+    "start:http": "cross-env TRANSPORT=http node dist/index.js",
     "test": "node dist/test.js",
     "dev": "tsc --watch",
     "inspector": "npx @modelcontextprotocol/inspector node dist/index.js"
@@ -37,6 +60,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
+    "cross-env": "^10.1.0",
     "typescript": "^5.3.2"
   },
   "engines": {

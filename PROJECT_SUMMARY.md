@@ -2,7 +2,7 @@
 
 ## 项目概述
 
-成功开发了一个基于 MCP (Model Context Protocol) 的预约服务，用于蘭泰式按摩门店的预约管理。该项目已准备发布到 npm 市场。
+成功开发了一个基于 MCP (Model Context Protocol) 的预约服务，用于蘭泰式按摩门店的预约管理。v2.0.0 版本新增 HTTP/SSE 传输层支持，可部署到远程服务器供多客户端使用。该项目已准备发布到 npm 市场。
 
 ## 实现的功能
 
@@ -57,14 +57,19 @@
 - **语言**: TypeScript 5.3+
 - **MCP SDK**: @modelcontextprotocol/sdk ^1.0.0
 - **验证库**: Zod ^3.22.4
+- **传输层**: stdio + HTTP/SSE (StreamableHTTPServerTransport)
 
 ### 项目结构
 ```
 lann-mcp-server/
 ├── src/
-│   ├── index.ts              # 入口文件
+│   ├── index.ts              # 入口文件（支持双模式）
 │   ├── server.ts             # MCP Server 配置
 │   ├── test.ts               # 功能测试脚本
+│   ├── config/               # 配置管理模块
+│   │   └── index.ts
+│   ├── transport/            # HTTP 服务器封装
+│   │   └── httpServer.ts
 │   ├── tools/                # MCP Tools 实现
 │   │   ├── createBooking.ts  # 创建预约工具
 │   │   ├── queryStores.ts    # 查询门店工具
@@ -81,6 +86,8 @@ lann-mcp-server/
 ├── package.json
 ├── tsconfig.json
 ├── README.md
+├── DEPLOYMENT.md             # 部署指南
+├── CHANGELOG.md              # 版本变更日志
 └── GUIDE.md
 ```
 
@@ -140,6 +147,7 @@ npm run inspector  # 使用 MCP Inspector 测试
 3. **真实 API 连接**: `create_booking` 工具已接入真实后端 API
 4. **类型安全**: 完整的 TypeScript 类型定义
 5. **易于扩展**: 清晰的代码结构便于功能扩展
+6. **双传输模式**: 支持 stdio 和 HTTP/SSE，可本地运行或远程部署
 
 ## 后续优化建议
 
@@ -148,6 +156,7 @@ npm run inspector  # 使用 MCP Inspector 测试
 3. **日志系统**: 添加完善的日志记录
 4. **性能优化**: 大数据量时的性能优化
 5. **国际化**: 支持多语言
+6. **意图识别增强**: 添加更智能的自然语言理解能力
 
 ## 发布准备
 
@@ -157,5 +166,8 @@ npm run inspector  # 使用 MCP Inspector 测试
 - [x] package.json 配置正确
 - [x] 代码结构清晰
 - [x] 错误处理完善
+- [x] HTTP/SSE 传输层实现
+- [x] 部署文档完整
+- [x] 版本升级至 v2.0.0
 
-项目已准备好发布到 npm！
+项目已准备好发布到 npm！当前版本：v2.0.0
