@@ -14,6 +14,8 @@ export async function queryStores(params: QueryStoresParams = {}): Promise<{
     address: string;
     telephone: string;
     traffic: string;
+    longitude?: number | null;
+    latitude?: number | null;
   }>;
   message?: string;
 }> {
@@ -27,7 +29,7 @@ export async function queryStores(params: QueryStoresParams = {}): Promise<{
       filteredStores = filteredStores.filter(store => {
         if (!store.name) return false;
         return store.name.toLowerCase().includes(keyword) ||
-               (store.ADDRESS && store.ADDRESS.toLowerCase().includes(keyword)) ||
+               (store.address && store.address.toLowerCase().includes(keyword)) ||
                (store.traffic && store.traffic.toLowerCase().includes(keyword));
       });
     }
@@ -36,8 +38,8 @@ export async function queryStores(params: QueryStoresParams = {}): Promise<{
     if (params.city) {
       const city = params.city.toLowerCase();
       filteredStores = filteredStores.filter(store => {
-        if (!store.name && !store.ADDRESS) return false;
-        const searchText = `${store.name || ''} ${store.ADDRESS || ''}`.toLowerCase();
+        if (!store.name && !store.address) return false;
+        const searchText = `${store.name || ''} ${store.address || ''}`.toLowerCase();
         return searchText.includes(city);
       });
     }
@@ -47,9 +49,11 @@ export async function queryStores(params: QueryStoresParams = {}): Promise<{
       .filter(store => store.name !== null) // 只返回有名称的门店
       .map(store => ({
         name: store.name || '未知门店',
-        address: store.ADDRESS || '地址不详',
-        telephone: store.TELEPHONE || '电话不详',
-        traffic: store.traffic || '交通指引不详'
+        address: store.address || '地址不详',
+        telephone: store.telephone || '电话不详',
+        traffic: store.traffic || '交通指引不详',
+        longitude: store.longitude,
+        latitude: store.latitude
       }));
 
     return {

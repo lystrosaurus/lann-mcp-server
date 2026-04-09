@@ -16,7 +16,7 @@ lann-mcp-server/
 │   ├── utils/                # 工具函数
 │   └── types/                # TypeScript 类型定义
 ├── dist/                     # 编译后的 JavaScript 代码
-├── org_store.json            # 门店数据 (70 条)
+├── org_store.json            # 门店数据 (75 条)
 ├── prod_service.json         # 服务项目数据 (28 个)
 └── package.json
 ```
@@ -28,20 +28,20 @@ lann-mcp-server/
 **用途**: 创建蘭泰式按摩预约
 
 **参数**:
-- `phone` (string, 必填): 11 位中国大陆手机号
+- `mobile` (string, 必填): 11 位中国大陆手机号
 - `storeName` (string, 必填): 门店名称（支持模糊匹配）
 - `serviceName` (string, 必填): 服务项目名称（支持模糊匹配）
-- `peopleCount` (number, 必填): 人数 (1-20)
-- `bookingTime` (string, 必填): ISO 8601 格式时间
+- `count` (number, 必填): 人数 (1-20)
+- `bookTime` (string, 必填): ISO 8601 格式时间
 
 **示例**:
 ```json
 {
-  "phone": "13800138000",
+  "mobile": "13800138000",
   "storeName": "淮海店",
   "serviceName": "传统古法全身按摩 -90 分钟",
-  "peopleCount": 2,
-  "bookingTime": "2024-01-15T14:00:00"
+  "count": 2,
+  "bookTime": "2024-01-15T14:00:00"  
 }
 ```
 
@@ -53,9 +53,35 @@ lann-mcp-server/
 - `city` (string, 可选): 城市名称
 - `keyword` (string, 可选): 关键词
 
+**返回字段**:
+- `name`: 门店名称
+- `address`: 详细地址
+- `telephone`: 联系电话
+- `traffic`: 交通指引
+- `longitude`: 经度（可选）
+- `latitude`: 纬度（可选）
+
 **示例**:
 ```json
 { "city": "上海", "keyword": "淮海" }
+```
+
+**返回示例**:
+```json
+{
+  "success": true,
+  "stores": [
+    {
+      "name": "淮海店",
+      "address": "上海市黄浦区进贤路216号（近陕西南路）",
+      "telephone": "021-62670235",
+      "traffic": "地铁1号线陕西南路1号口出，沿陕西南路走到进贤路右转约100m",
+      "longitude": 121.45813,
+      "latitude": 31.22132
+    }
+  ],
+  "message": "共找到 1 家门店"
+}
 ```
 
 ### 3. `query_services` - 查询服务
@@ -71,32 +97,6 @@ lann-mcp-server/
 { "keyword": "精油", "duration": 90 }
 ```
 
-## 运行方式
-
-### 开发模式
-```bash
-npm run dev        # 监听 TypeScript 变化自动编译
-```
-
-### 编译构建
-```bash
-npm run build      # 编译 TypeScript
-```
-
-### 运行测试
-```bash
-npm test           # 运行功能测试
-```
-
-### 启动 MCP Server
-```bash
-npm start          # 启动服务器
-```
-
-### 使用 MCP Inspector 测试
-```bash
-npm run inspector  # 打开 Inspector UI
-```
 
 ## Claude Desktop 配置
 
@@ -127,10 +127,11 @@ npm run inspector  # 打开 Inspector UI
 
 ## 数据概览
 
-- **门店数量**: 70 家（实际有效 65 家）
+- **门店数量**: 75 家
 - **覆盖城市**: 上海、杭州、成都、苏州、深圳、武汉、宁波等
 - **服务项目**: 28 个
 - **服务类型**: 传统古法按摩、精油 SPA、椰香按摩、草本热敷、面部护理、泰式拉伸、足部释压等
+- **门店数据字段**: name, address, telephone, traffic, longitude, latitude
 
 ## 验证规则
 

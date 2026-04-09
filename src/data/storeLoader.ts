@@ -23,7 +23,18 @@ export function loadStores(): Store[] {
   try {
     const filePath = join(ROOT_DIR, 'org_store.json');
     const data = readFileSync(filePath, 'utf-8');
-    storesCache = JSON.parse(data) as Store[];
+    const rawData = JSON.parse(data);
+    
+    // 确保数据类型兼容性：将旧的大写字段映射到新的小写字段（如果存在）
+    storesCache = rawData.map((item: any) => ({
+      name: item.name ?? null,
+      address: item.address ?? item.ADDRESS ?? null,
+      telephone: item.telephone ?? item.TELEPHONE ?? null,
+      traffic: item.traffic ?? null,
+      longitude: item.longitude ?? null,
+      latitude: item.latitude ?? null
+    })) as Store[];
+    
     return storesCache;
   } catch (error) {
     console.error('加载门店数据失败:', error);

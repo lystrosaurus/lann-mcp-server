@@ -3,9 +3,11 @@
  */
 export interface Store {
   name: string | null;
-  ADDRESS: string | null;
-  TELEPHONE: string | null;
+  address: string | null;
+  telephone: string | null;
   traffic: string | null;
+  longitude?: number | null;
+  latitude?: number | null;
 }
 
 /**

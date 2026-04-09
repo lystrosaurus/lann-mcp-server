@@ -1,6 +1,6 @@
 # Lann MCP Server
 
-> 蘭泰式按摩预约服务的 Model Context Protocol (MCP) 服务器，为 AI 助手提供门店查询、服务查询和在线预约能力。
+> Lann MCP Server 是一个为 AI Agent 提供 蘭(lann)泰式按摩预约服务的 Model Context Protocol (MCP) 服务器，为 AI 助手提供门店查询、服务查询和在线预约能力。
 
 [![npm version](https://img.shields.io/npm/v/lann-mcp-server.svg)](https://www.npmjs.com/package/lann-mcp-server)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -39,9 +39,6 @@
 ```bash
 # 安装并启动
 npx lann-mcp-server
-
-# 或使用 MCP Inspector 可视化调试
-npx -y @modelcontextprotocol/inspector npx lann-mcp-server
 ```
 
 ### 方式三：作为依赖包使用
@@ -124,8 +121,6 @@ const toolResponse = await fetch('https://open.lannlife.com/mcp', {
 });
 ```
 
-更多详细的 HTTP/SSE 协议说明请参考 [HTTP_USAGE.md](./HTTP_USAGE.md)。
-
 ## 📖 使用场景
 
 ### 本地集成（stdio 模式）
@@ -202,8 +197,6 @@ TRANSPORT=http npx lann-mcp-server
 - **默认地址**: `http://localhost:3000/mcp`
 - **健康检查**: `http://localhost:3000/health`
 
-**注意：** 本地部署仅适用于开发和测试环境。生产环境请使用上方的生产服务或参考 [DEPLOYMENT.md](./DEPLOYMENT.md) 进行专业部署。
-
 ## 🛠️ 核心工具能力
 
 本 MCP Server 提供三个核心工具，帮助 AI Agent 完成蘭泰式按摩的查询和预约流程：
@@ -222,7 +215,7 @@ TRANSPORT=http npx lann-mcp-server
 - `keyword` (string, 可选): 关键词，如"淮海"、"新天地"、"地铁"等
 
 **返回信息：**
-- 门店名称、详细地址、联系电话、交通指引
+- 门店名称、详细地址、联系电话、交通指引、经纬度坐标（可选）
 
 **Agent 调用示例：**
 ```json
@@ -245,14 +238,20 @@ TRANSPORT=http npx lann-mcp-server
   "stores": [
     {
       "name": "淮海店",
-      "address": "上海市黄浦区进贤路 216 号（近陕西南路）",
+      "address": "上海市黄浦区进贤路216号（近陕西南路）",
       "telephone": "021-62670235",
-      "traffic": "地铁 1 号线陕西南路 1 号口出"
+      "traffic": "地铁1号线陕西南路1号口出，沿陕西南路走到进贤路右转约100m",
+      "longitude": 121.45813,
+      "latitude": 31.22132
     }
   ],
   "message": "共找到 1 家门店"
 }
 ```
+
+**使用提示：**
+- `longitude` 和 `latitude` 字段可用于地图展示或距离计算
+- 如果某些门店没有经纬度数据，这两个字段可能为 `null` 或不存在
 
 ---
 
@@ -349,8 +348,11 @@ TRANSPORT=http npx lann-mcp-server
   "message": "预约成功！已为您发送确认短信。",
   "storeInfo": {
     "name": "淮海店",
-    "address": "上海市黄浦区进贤路 216 号（近陕西南路）",
-    "telephone": "021-62670235"
+    "address": "上海市黄浦区进贤路216号（近陕西南路）",
+    "telephone": "021-62670235",
+    "traffic": "地铁1号线陕西南路1号口出，沿陕西南路走到进贤路右转约100m",
+    "longitude": 121.45813,
+    "latitude": 31.22132
   },
   "serviceInfo": {
     "name": "传统古法全身按摩 -90 分钟"
@@ -392,30 +394,6 @@ TRANSPORT=http npx lann-mcp-server
 
 本服务实现了智能匹配算法，已在上面的工具介绍中详细说明。Agent 可以利用这一特性提供更友好的用户体验，即使用户输入不够精确也能正确理解意图。
 
-## 📚 更多文档
-
-- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - 生产环境部署指南（Nginx、SSL、PM2）
-- **[HTTP_USAGE.md](./HTTP_USAGE.md)** - HTTP/SSE 协议详细说明和 cURL 示例
-- **[GUIDE.md](./GUIDE.md)** - 完整使用指南和开发文档
-
-## 💻 开发
-
-### 本地开发
-
-```bash
-# 安装依赖
-npm install
-
-# 编译 TypeScript
-npm run build
-
-# 监听模式
-npm run dev
-
-# 运行服务
-npm start
-```
-
 ### 项目结构
 
 ```
@@ -454,7 +432,7 @@ lann-mcp-server/
 1. **API 连接** - `create_booking` 工具已连接真实后端 API（`https://open.lannlife.com/mcp/book/create`）
 2. **数据完整性** - 部分门店数据的字段可能为 null
 3. **预约时间** - 只能预约未来 30 天内的服务
-4. **版本信息** - 当前稳定版本为 v2.0.0，支持 stdio 和 HTTP/SSE 双传输模式
+4. **版本信息** - 当前稳定版本为 v2.0.1，支持 stdio 和 HTTP/SSE 双传输模式
 5. **生产环境** - 推荐使用 `https://open.lannlife.com/mcp` 而非本地部署
 6. **会话管理** - HTTP 模式下需妥善管理 `Mcp-Session-Id`，会话过期需重新初始化
 7. **速率限制** - 生产环境限制为 100 请求/分钟/IP，请合理控制调用频率
@@ -478,12 +456,7 @@ lann-mcp-server/
 
 ```bash
 npm install lann-mcp-server@latest
-npm run build  # 如果是本地开发
 ```
-
-## 👥 贡献
-
-欢迎提交 Issue 和 Pull Request！详情请参阅 [CONTRIBUTING.md](./CONTRIBUTING.md)。
 
 ## 📄 License
 

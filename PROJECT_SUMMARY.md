@@ -81,7 +81,7 @@ lann-mcp-server/
 │   │   ├── matcher.ts        # 智能匹配算法
 │   │   └── validator.ts      # 参数验证
 │   └── types/                # TypeScript 类型定义
-├── org_store.json            # 门店数据 (70 条)
+├── org_store.json            # 门店数据 (75 条)
 ├── prod_service.json         # 服务项目数据 (28 个)
 ├── package.json
 ├── tsconfig.json
